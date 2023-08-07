@@ -33,7 +33,7 @@ namespace MvcMessageLogger.Testing
         }
 
         [Fact]
-        public void Index_ReturnsViewWithUsers()
+        public async Task Index_ReturnsViewWithUsers()
         {
             var context = GetDbContext();
             context.Users.Add(new User ("User1", "Username2"));
@@ -45,11 +45,62 @@ namespace MvcMessageLogger.Testing
             var response = await client.GetAsync("/Users");
             var html = await response.Content.ReadAsStringAsync();
 
-            Assert.Contains("Spaceballs", html);
-            Assert.Contains("Young Frankenstein", html);
+            Assert.Contains("User1", html);
+            Assert.Contains("User2", html);
+            Assert.DoesNotContain("User3", html);
+        }
 
-            // Make sure it does not hit actual database
-            Assert.DoesNotContain("Elf", html);
+        [Fact]
+        public async Task Index_ShowsLinkToNew()
+        {
+            //Arrange
+            var client = _factory.CreateClient();
+
+            //Act
+            var response = await client.GetAsync($"/Users");
+            var html = await response.Content.ReadAsStringAsync();
+
+            //Assert
+            Assert.Contains($"<a href='/Users/new'>", html);
+        }
+
+        [Fact]
+        public async Task New_ReturnsForm()
+        {
+            //Arrange
+            var client = _factory.CreateClient();
+            var context = GetDbContext();
+
+            //Act
+            var response = await client.GetAsync($"/Users/new");
+            var html = await response.Content.ReadAsStringAsync();
+
+            //Assert
+            Assert.Contains("label", html);
+            Assert.Contains("input", html);
+            Assert.Contains("User", html);
+            Assert.Contains("Username", html);
+            Assert.Contains($"<form method=\"post\" action=\"/Users/index\">", html);
+        }
+        [Fact]
+        public async Task Create_CreatesUsersRedirectsToIndex()
+        {
+            var client = _factory.CreateClient();
+            var context = GetDbContext();
+            var addUserFormData = new Dictionary<string, string>
+            {
+                {"Name", "User1" },
+                {"Username", "Username1" }
+            };
+
+            var response = await client.PostAsync($"/Users/index", new FormUrlEncodedContent(addUserFormData));
+            var html = await response.Content.ReadAsStringAsync();
+
+            response.EnsureSuccessStatusCode();
+            Assert.Contains($"/Users/index", response.RequestMessage.RequestUri.ToString());
+            Assert.Contains("User1", html);
+            Assert.Contains("Username1", html);
+            Assert.DoesNotContain("User2", html);
         }
     }
 }
