@@ -11,6 +11,7 @@ using MvcMessageLogger.Models;
 
 namespace MvcMessageLogger.Testing
 {
+    [Collection("Async")]
     public class UsersControllerTests : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly WebApplicationFactory<Program> _factory;
@@ -80,7 +81,7 @@ namespace MvcMessageLogger.Testing
             Assert.Contains("input", html);
             Assert.Contains("User", html);
             Assert.Contains("Username", html);
-            Assert.Contains($"<form method=\"post\" action=\"/Users/index\">", html);
+            Assert.Contains($"<form method=\"post\" action=\"/Users\">", html);
         }
         [Fact]
         public async Task Create_CreatesUsersRedirectsToIndex()
@@ -93,11 +94,11 @@ namespace MvcMessageLogger.Testing
                 {"Username", "Username1" }
             };
 
-            var response = await client.PostAsync($"/Users/index", new FormUrlEncodedContent(addUserFormData));
+            var response = await client.PostAsync($"/Users", new FormUrlEncodedContent(addUserFormData));
             var html = await response.Content.ReadAsStringAsync();
 
             response.EnsureSuccessStatusCode();
-            Assert.Contains($"/Users/index", response.RequestMessage.RequestUri.ToString());
+            Assert.Contains($"/Users", response.RequestMessage.RequestUri.ToString());
             Assert.Contains("User1", html);
             Assert.Contains("Username1", html);
             Assert.DoesNotContain("User2", html);
