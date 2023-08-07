@@ -33,9 +33,23 @@ namespace MvcMessageLogger.Testing
         }
 
         [Fact]
-        public void Test1()
+        public void Index_ReturnsViewWithUsers()
         {
-            Assert.Equal(1, 1);
+            var context = GetDbContext();
+            context.Users.Add(new User ("User1", "Username2"));
+            context.Users.Add(new User ("User2","Username2"));
+            context.SaveChanges();
+
+            var client = _factory.CreateClient();
+
+            var response = await client.GetAsync("/Users");
+            var html = await response.Content.ReadAsStringAsync();
+
+            Assert.Contains("Spaceballs", html);
+            Assert.Contains("Young Frankenstein", html);
+
+            // Make sure it does not hit actual database
+            Assert.DoesNotContain("Elf", html);
         }
     }
 }
