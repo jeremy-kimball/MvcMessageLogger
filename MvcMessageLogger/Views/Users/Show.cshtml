@@ -1,0 +1,16 @@
+﻿@model User
+
+<h1>Details for @Model.Name</h1>
+
+<p>User: @Model.Name</p>
+<p>Username: @Model.Username</p>
+
+<h3>Messages</h3>
+@foreach(var message in Model.Messages)
+{
+    <p>[@message.CreatedAt] @message.Content</p>
+}
+
+<form method="get" action="/Users/@Model.Id/Messages/New">
+    <button>New Message</button>
+</form>
