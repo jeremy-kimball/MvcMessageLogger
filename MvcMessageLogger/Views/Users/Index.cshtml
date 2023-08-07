@@ -1,0 +1,8 @@
+﻿@model IEnumerable<MvcMessageLogger.Models.User>
+
+<h1>All Users</h1>
+
+@foreach(var user in Model)
+{
+    <p>Name:@user.Name, Username:@user.Username</p>
+}

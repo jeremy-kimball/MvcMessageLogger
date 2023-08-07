@@ -36,7 +36,7 @@ namespace MvcMessageLogger.Testing
         public async Task Index_ReturnsViewWithUsers()
         {
             var context = GetDbContext();
-            context.Users.Add(new User ("User1", "Username2"));
+            context.Users.Add(new User ("User1","Username1"));
             context.Users.Add(new User ("User2","Username2"));
             context.SaveChanges();
 
