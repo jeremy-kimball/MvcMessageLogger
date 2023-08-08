@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<MvcMessageLogger.Models.User>
 @{
     var sortedDict = ViewData["UsersOrderedByMessageCount"] as IEnumerable<KeyValuePair<string, int>>;
+    var hourly = ViewData["HourOfMostMessages"] as Dictionary<string, int>;
 }
 <h1>Statistics</h1>
 
@@ -8,4 +9,9 @@
 @foreach (var kvpair in sortedDict)
 {
     <p>User: @kvpair.Key, Message Count: @kvpair.Value</p>
+}
+
+@foreach (var kvpair in hourly)
+{
+    <p>@kvpair.Key: @kvpair.Value</p>
 }
