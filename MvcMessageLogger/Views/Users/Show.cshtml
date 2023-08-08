@@ -5,10 +5,10 @@
 <p>User: @Model.Name</p>
 <p>Username: @Model.Username</p>
 
-<h3>Messages</h3>
+<h3>Messages (@Model.Messages.Count)</h3>
 @foreach(var message in Model.Messages)
 {
-    <p>[@message.CreatedAt] @message.Content</p>
+    <p>[@message.CreatedAt.ToLocalTime()] @message.Content</p>
 }
 
 <form method="get" action="/Users/@Model.Id/Messages/New">

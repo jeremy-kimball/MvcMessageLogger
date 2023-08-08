@@ -2,16 +2,28 @@
 @{
     var sortedDict = ViewData["UsersOrderedByMessageCount"] as IEnumerable<KeyValuePair<string, int>>;
     var hourly = ViewData["HourOfMostMessages"] as Dictionary<string, int>;
+    var overallByUser = ViewData["MostCommonWord"] as Dictionary<string, int>;
+    var overall = ViewData["MostCommonWordOverall"] as Dictionary<string, int>;
 }
 <h1>Statistics</h1>
 
-
+<h3>Users Ordered by Message Count</h3>
 @foreach (var kvpair in sortedDict)
 {
     <p>User: @kvpair.Key, Message Count: @kvpair.Value</p>
 }
-
+<h3>Most Messages by Hour</h3>
 @foreach (var kvpair in hourly)
+{
+    <p>@kvpair.Key: @kvpair.Value</p>
+}
+<h3>Most Common Word by User</h3>
+@foreach(var kvpair in overallByUser)
+{
+    <p>@kvpair.Key: @kvpair.Value</p>
+}
+<h3>Most Common Word Overall</h3>
+@foreach (var kvpair in overall)
 {
     <p>@kvpair.Key: @kvpair.Value</p>
 }

@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using MvcMessageLogger.DataAccess;
 using MvcMessageLogger.Models;
+using System.Diagnostics.Eventing.Reader;
+using System.Text.RegularExpressions;
 
 namespace MvcMessageLogger.Controllers
 {
@@ -20,35 +22,14 @@ namespace MvcMessageLogger.Controllers
         {
             var users = _context.Users.Include(u => u.Messages);
             ViewData["UsersOrderedByMessageCount"] = UsersOrderedByMessageCount(_context);
-            ViewData["MostCommonWord"] = MostCommonWord(_context, 0);
+            ViewData["MostCommonWord"] = MostCommonWordByUser(_context, 1);
+            ViewData["MostCommonWordOverall"] = MostCommonWordOverall(_context);
             ViewData["HourOfMostMessages"] = HourOfMostMessages(_context);
             return View(users);
         }
 
 
-        public static string MostCommonWord(MvcMessageLoggerContext context, int minUsageNum)
-        {
-            List<string> allMessageStrings = context.Messages.Select(m => m.Content).ToList();
-            List<string> singleWordList = new List<string>();
-            foreach (string messageString in allMessageStrings)
-            {
-                var splitString = messageString.Split(" ");
-                singleWordList.AddRange(splitString);
-            }
-            string builtString = null;
-            foreach (string word in singleWordList.Distinct())
-            {
-                if (singleWordList.Where(w => w == word).Count() < minUsageNum)
-                {
-                    continue;
-                }
-                else
-                {
-                    builtString += $"'{word}' occurs {singleWordList.Where(w => w == word).Count()} times.\n";
-                }
-            }
-            return builtString;
-        }
+
 
         public static IEnumerable<KeyValuePair<string, int>> UsersOrderedByMessageCount(MvcMessageLoggerContext context)
         {
@@ -87,10 +68,67 @@ namespace MvcMessageLogger.Controllers
                 }
             }
             return timeMessageCount;
+        }
+
+        public static Dictionary<string, int> MostCommonWordOverall(MvcMessageLoggerContext context)
+        {
+            var users = context.Users.Include(u => u.Messages);
+            var wordCount = new Dictionary<string, int>();
+            foreach(var user in users)
+            {
+                foreach (var message in user.Messages)
+                {
+                    foreach (var word in SplitAndClean(message.Content))
+                    {
+                        if (!wordCount.ContainsKey(word))
+                        {
+                            wordCount.Add(word, 1);
+                        }
+                        else if (wordCount.ContainsKey(word))
+                        {
+                            wordCount[word] += 1;
+                        }
+                    }
+                }
+            }
+
+            return wordCount;
 
         }
 
+        public static Dictionary<string, int> MostCommonWordByUser(MvcMessageLoggerContext context, int id)
+        {
+            var user = context.Users.Include(u => u.Messages).Where(u => u.Id == id).First();
+            var wordCount = new Dictionary<string, int>();
+            foreach(var message in user.Messages)
+            {
+                foreach(var word in SplitAndClean(message.Content))
+                {
+                    if(!wordCount.ContainsKey(word))
+                    {
+                        wordCount.Add(word, 1);
+                    }
+                    else if(wordCount.ContainsKey(word))
+                    {
+                        wordCount[word] += 1;
+                    }
+                }
+            }
+            return wordCount;
         }
+
+        public static List<string> SplitAndClean(string words)
+        {
+            var wordsSplit = words.Split();
+            var cleanList = new List<string>();
+            foreach(var word in wordsSplit)
+            {
+                cleanList.Add(Regex.Replace(word, "[!\"#$%&'()*+,-./:;<=>?@\\[\\]^_`{|}~]", string.Empty));
+            }
+            return cleanList;
+        }
+
+    }
 }
 
 
@@ -98,11 +136,11 @@ namespace MvcMessageLogger.Controllers
 
 //[]How many messages each user has written
 // - Search bar? search bar above message highscores to filter for an exact user
-
+// - 
 //[X]Users ordered by number of messages created (most to least) <-- Message Highscores
 // - build dictionary, key - user, value - count of messages
 
-//[]Most commonly used word for messages (by user and overall)
+//[X]Most commonly used word for messages (by user and overall)
 // -
 
 //[X]The hour with the most messages
@@ -131,4 +169,29 @@ namespace MvcMessageLogger.Controllers
 //    }
 //    return timeMessageCount;
 
+//}
+
+//Most common word method from old project
+//public static string MostCommonWord(MvcMessageLoggerContext context, int minUsageNum)
+//{
+//    List<string> allMessageStrings = context.Messages.Select(m => m.Content).ToList();
+//    List<string> singleWordList = new List<string>();
+//    foreach (string messageString in allMessageStrings)
+//    {
+//        var splitString = messageString.Split(" ");
+//        singleWordList.AddRange(splitString);
+//    }
+//    string builtString = null;
+//    foreach (string word in singleWordList.Distinct())
+//    {
+//        if (singleWordList.Where(w => w == word).Count() < minUsageNum)
+//        {
+//            continue;
+//        }
+//        else
+//        {
+//            builtString += $"'{word}' occurs {singleWordList.Where(w => w == word).Count()} times.\n";
+//        }
+//    }
+//    return builtString;
 //}
