@@ -10,7 +10,7 @@ using MvcMessageLogger.Models;
 
 namespace MvcMessageLogger.Testing
 {
-    [Collection("Async2")]
+    [Collection("Async")]
     public class MessagesControllerTests : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly WebApplicationFactory<Program> _factory;
@@ -31,7 +31,7 @@ namespace MvcMessageLogger.Testing
 
             return context;
         }
-
+     
         [Fact]
         public async Task New_ReturnsViewWithForm()
         {
