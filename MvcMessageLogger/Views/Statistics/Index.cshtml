@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<MvcMessageLogger.Models.User>
 @{
-    IEnumerable<KeyValuePair<string, int>> sortedDict = ViewData["UsersOrderedByMessageCount"] as IEnumerable<KeyValuePair<string, int>>;
+    var sortedDict = ViewData["UsersOrderedByMessageCount"] as IEnumerable<KeyValuePair<string, int>>;
 }
 <h1>Statistics</h1>
 

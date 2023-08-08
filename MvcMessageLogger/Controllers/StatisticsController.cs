@@ -18,7 +18,7 @@ namespace MvcMessageLogger.Controllers
         public IActionResult Index()
         {
             var users = _context.Users.Include(u => u.Messages);
-            ViewData["UsersOrderedByMessageCount"] = UsersOrderedMessageCount(_context);
+            ViewData["UsersOrderedByMessageCount"] = UsersOrderedByMessageCount(_context);
             ViewData["MostCommonWord"] = MostCommonWord(_context, 0);
             ViewData["HourOfMostMessages"] = HourOfMostMessages(_context);
             return View(users);
@@ -76,18 +76,7 @@ namespace MvcMessageLogger.Controllers
             return builtString;
         }
 
-        public static string UsersOrderedByMessageCount(MvcMessageLoggerContext context)
-        {
-            var userAll = context.Users.Include(u => u.Messages).OrderByDescending(u => u.Messages.Count);
-            string builtString = null;
-            foreach (var u in userAll)
-            {
-                builtString += $"{u.Username}: {u.Messages.Count}\n";
-            }
-            return builtString;
-        }
-
-        public static IEnumerable<KeyValuePair<string, int>> UsersOrderedMessageCount(MvcMessageLoggerContext context)
+        public static IEnumerable<KeyValuePair<string, int>> UsersOrderedByMessageCount(MvcMessageLoggerContext context)
         {
             var users = context.Users.Include(u => u.Messages);
             Dictionary<string, int> UserDict = new Dictionary<string, int>();
@@ -104,10 +93,14 @@ namespace MvcMessageLogger.Controllers
 
 //Stats page goals
 
-//How many messages each user has written
-//build dictionary, key - user, value - count of messages
+//[]How many messages each user has written
+// -
 
-//Users ordered by number of messages created (most to least)
-//Most commonly used word for messages (by user and overall)
-//The hour with the most messages
-//Brainstorm your own interesting statistic(s)!
+//[X]Users ordered by number of messages created (most to least)
+// - build dictionary, key - user, value - count of messages
+
+//[]Most commonly used word for messages (by user and overall)
+// -
+
+//[]The hour with the most messages
+// -
