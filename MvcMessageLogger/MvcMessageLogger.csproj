@@ -15,4 +15,16 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Users\Show.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Users\Show.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Users\Show.cshtml" />
+  </ItemGroup>
+
 </Project>

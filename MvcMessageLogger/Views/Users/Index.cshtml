@@ -4,6 +4,9 @@
 
 @foreach(var user in Model)
 {
+    <form method="get" action="/Users/@user.Id/Details">
+        <button>Login</button>
+    </form>
     <p>Name:@user.Name, Username:@user.Username</p>
 }
 
