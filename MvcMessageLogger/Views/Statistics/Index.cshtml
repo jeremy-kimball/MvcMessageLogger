@@ -21,7 +21,7 @@
                 <ul class="list-group">
                 @foreach (var kvpair in sortedDict)
                 {
-                        <li class="list-group-item"><span class="badge bg-secondary">User:</span> @kvpair.Key, Message Count: @kvpair.Value</li>
+                        <li class="list-group-item"><strong>@kvpair.Key:</strong> @kvpair.Value</li>
                 }
                 </ul>
             </div> <!-- End Message Count column -->
@@ -30,7 +30,7 @@
                 <ul class="list-group">
                 @foreach (var kvpair in hourly)
                 {
-                        <li class="list-group-item">@kvpair.Key: @kvpair.Value</li>
+                        <li class="list-group-item"><strong>@kvpair.Key:</strong> @kvpair.Value</li>
                 }
                 </ul>
             </div> <!-- End Most Messages column -->
@@ -42,7 +42,7 @@
                     <ul class="list-group">
                     @foreach (var kvpair in overallByUser)
                     {
-                            <li class="list-group-item">@kvpair.Key: @kvpair.Value</li>
+                            <li class="list-group-item"><strong>@kvpair.Key:</strong> @kvpair.Value</li>
                     }
                     </ul>
                     <ul style="inline">
@@ -59,7 +59,7 @@
                     <ul class="list-group">
                     @foreach (var kvpair in overall)
                     {
-                            <li class="list-group-item">@kvpair.Key: @kvpair.Value</li>
+                            <li class="list-group-item"><strong>@kvpair.Key:</strong> @kvpair.Value</li>
                     }
                     </ul>
                     <ul style="inline">
