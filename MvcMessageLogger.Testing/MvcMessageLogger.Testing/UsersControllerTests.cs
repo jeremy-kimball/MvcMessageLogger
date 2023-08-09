@@ -62,7 +62,7 @@ namespace MvcMessageLogger.Testing
             var html = await response.Content.ReadAsStringAsync();
 
             //Assert
-            Assert.Contains($"<a href='/Users/new'>", html);
+            Assert.Contains($"<form method=\"get\" action=\"/Users/New\">", html);
         }
 
         [Fact]
