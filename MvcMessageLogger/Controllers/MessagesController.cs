@@ -21,26 +21,25 @@ namespace MvcMessageLogger.Controllers
             return View();
         }
 
-        [Route("/Users/{id:int}/Messages/new")]
-        public IActionResult New(int id)
+        [Route("/Users/{userId:int}/Messages/new")]
+        public IActionResult New(int userId)
         {
-            var user = _context.Users.Find(id);
+            var user = _context.Users.Where(u => u.Id == userId).Include(u => u.Messages).First();
             return View(user);
         }
 
         [HttpPost]
-        [Route("/Users/{id:int}/Details")]
-        public IActionResult Create(int id, Message message)
+        [Route("/Users/{userId:int}/Messages")]
+        public IActionResult Create(int userId, Message message)
         {
-            //come back to the way i fixed duplicate keys on line 38
-            var user = _context.Users.Find(id);
+            var user = _context.Users
+                .Where(u => u.Id == userId)
+                .Include(u => u.Messages)
+                .First();
             message.CreatedAt = DateTime.Now.ToUniversalTime();
-            message.Id = _context.Messages.Max(m => m.Id) + 1;
-            _context.Messages.Add(message);
             user.Messages.Add(message);
             _context.SaveChanges();
-
-            return Redirect($"/Users/{id}/Details");
+            return Redirect($"/Users/{userId}/Details");
         }
     }
 }
