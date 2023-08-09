@@ -41,5 +41,16 @@ namespace MvcMessageLogger.Controllers
             _context.SaveChanges();
             return Redirect($"/Users/{userId}/Details");
         }
+
+        [HttpPost]
+        [Route("/Users/{userId:int}/Messages/Delete/{messageId:int}")]
+        public IActionResult Delete(int userId, int messageId)
+        {
+            var message = _context.Messages.Find(messageId);
+            _context.Messages.Remove(message);
+            _context.SaveChanges();
+
+            return Redirect($"/Users/{userId}/Details");
+        }
     }
 }
