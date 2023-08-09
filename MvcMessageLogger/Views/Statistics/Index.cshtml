@@ -38,10 +38,12 @@
                 @if (@ViewData["SearchUsername"] != null)
                 {
                     <h2 class="bg-success text-white rounded p-2">Most Common Word By @searched.Username</h2>
+                    <ul class="list-group">
                     @foreach (var kvpair in overallByUser)
                     {
-                        <p>@kvpair.Key: @kvpair.Value</p>
+                            <li class="list-group-item">@kvpair.Key: @kvpair.Value</li>
                     }
+                    </ul>
                     <ul style="inline">
                         <li><a href="/Statistics">All</a></li>
                         @foreach (var username in allUsernames)
@@ -53,10 +55,12 @@
                 @if (@ViewData["SearchUsername"] == null)
                 {
                     <h2 class="bg-success text-white rounded p-2">Most Common Word Overall</h2>
+                    <ul class="list-group">
                     @foreach (var kvpair in overall)
                     {
-                        <p>@kvpair.Key: @kvpair.Value</p>
+                            <li class="list-group-item">@kvpair.Key: @kvpair.Value</li>
                     }
+                    </ul>
                     <ul style="inline">
                         <li><a href="/Statistics">All</a></li>
                         @foreach (var username in allUsernames)
