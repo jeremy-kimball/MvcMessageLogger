@@ -40,7 +40,7 @@
                 {
                     <h2 class="bg-primary text-white rounded p-2">Most Common Word By @searched.Username</h2>
                     <ul class="list-group">
-                    @foreach (var kvpair in overallByUser)
+                    @foreach (var kvpair in overallByUser.OrderByDescending(kvp => kvp.Value))
                     {
                             <li class="list-group-item"><strong>@kvpair.Key:</strong> @kvpair.Value</li>
                     }
@@ -62,7 +62,7 @@
                 {
                     <h2 class="bg-primary text-white rounded p-2">Most Common Word Overall</h2>
                     <ul class="list-group">
-                    @foreach (var kvpair in overall)
+                        @foreach (var kvpair in overall.OrderByDescending(kvp => kvp.Value))
                     {
                             <li class="list-group-item"><strong>@kvpair.Key:</strong> @kvpair.Value</li>
                     }
