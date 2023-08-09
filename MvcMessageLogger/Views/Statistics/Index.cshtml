@@ -45,13 +45,18 @@
                             <li class="list-group-item"><strong>@kvpair.Key:</strong> @kvpair.Value</li>
                     }
                     </ul>
-                    <ul style="inline">
-                        <li><a href="/Statistics">All</a></li>
-                        @foreach (var username in allUsernames)
-                        {
-                            <li><a href="/Statistics?username=@username">@username</a></li>
-                        }
-                    </ul>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            @searched.Username
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item dropdown-header" href="/Statistics">All</a></li>
+                            @foreach (var username in allUsernames)
+                            {
+                                <li><a class="dropdown-item" href="/Statistics?username=@username">@username</a></li>
+                            }
+                        </ul>
+                    </div>
                 }
                 @if (@ViewData["SearchUsername"] == null)
                 {
@@ -62,13 +67,19 @@
                             <li class="list-group-item"><strong>@kvpair.Key:</strong> @kvpair.Value</li>
                     }
                     </ul>
-                    <ul style="inline">
-                        <li><a href="/Statistics">All</a></li>
-                        @foreach (var username in allUsernames)
-                        {
-                            <li><a href="/Statistics?username=@username">@username</a></li>
-                        }
-                    </ul>
+
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select User
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item dropdown-header" href="/Statistics">All</a></li>
+                            @foreach (var username in allUsernames)
+                            {
+                                <li><a class="dropdown-item" href="/Statistics?username=@username">@username</a></li>
+                            }
+                        </ul>
+                    </div>
                 }
             </div> <!-- End Common Word column -->
         </div> <!-- End row -->
