@@ -21,7 +21,7 @@
                 <ul class="list-group">
                 @foreach (var kvpair in sortedDict)
                 {
-                        <li class="list-group-item">User: @kvpair.Key, Message Count: @kvpair.Value</li>
+                        <li class="list-group-item"><span class="badge bg-secondary">User:</span> @kvpair.Key, Message Count: @kvpair.Value</li>
                 }
                 </ul>
             </div> <!-- End Message Count column -->
