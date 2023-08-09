@@ -91,11 +91,11 @@ namespace MvcMessageLogger.Helpers
 
         public static List<string> SplitAndClean(string words)
         {
-            var wordsSplit = words.Split();
+            var wordsSplit = words.ToLower().Split();
             var cleanList = new List<string>();
             foreach (var word in wordsSplit)
             {
-                cleanList.Add(Regex.Replace(word, "[!\"#$%&'()*+,-./:;<=>?@\\[\\]^_`{|}~]", string.Empty));
+                cleanList.Add(Regex.Replace(word, "[!\"#$%&'()*+,-./:;<=>?@\\[\\]^_`{|}~123456789]", string.Empty));
             }
             return cleanList;
         }
