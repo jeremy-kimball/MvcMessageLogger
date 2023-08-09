@@ -1,17 +1,25 @@
 ﻿@model IEnumerable<MvcMessageLogger.Models.User>
 
-<h1>All Users</h1>
+<h1 class="text-center">All Users</h1>
+<hr/>
 
 @foreach(var user in Model)
 {
+
+    <div class="d-flex justify-content-between">
     <form method="get" action="/Users/@user.Id/Details">
-        <button class="btn btn-primary">Login</button>
+        <button class="btn btn-primary justify-content-start">Login</button>
     </form>
+        <span>Name:@user.Name, Username:@user.Username</span>
     <form method="post" action="/Users/delete/@user.Id">
-        <button type="submit" onclick="return confirm('Are you sure you want to delete @user.Username?')" class="btn btn-danger">Delete</button>
+            <button type="submit" onclick="return confirm('Are you sure you want to delete @user.Username?')" class="btn btn-danger justify-content-end">Delete</button>
     </form>
-    <p>Name:@user.Name, Username:@user.Username</p>
+
+    </div>
 }
 
-
-<a href='/Users/new'>Add a new User</a>
+<div class="d-flex justify-content-end p-4">
+    <form method="get" action="/Users/New">
+        <button class="btn btn-success justify-content-start">Add User</button>
+    </form>
+<div/>
