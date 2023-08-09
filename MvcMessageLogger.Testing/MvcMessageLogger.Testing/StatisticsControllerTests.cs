@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace MvcMessageLogger.Testing
 {
+    [Collection("Async")]
     public class StatisticsControllerTests : IClassFixture<WebApplicationFactory<Program>>
     {
         

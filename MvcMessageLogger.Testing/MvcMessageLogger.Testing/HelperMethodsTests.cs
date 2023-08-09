@@ -10,6 +10,7 @@ using MvcMessageLogger.Models;
 
 namespace MvcMessageLogger.Testing
 {
+    [Collection("Async")]
     public class HelperMethodsTests
     {
         private MvcMessageLoggerContext GetDbContext()
