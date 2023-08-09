@@ -32,8 +32,10 @@ namespace MvcMessageLogger.Controllers
         [Route("/Users/{id:int}/Details")]
         public IActionResult Create(int id, Message message)
         {
+            //come back to the way i fixed duplicate keys on line 38
             var user = _context.Users.Find(id);
             message.CreatedAt = DateTime.Now.ToUniversalTime();
+            message.Id = _context.Messages.Max(m => m.Id) + 1;
             _context.Messages.Add(message);
             user.Messages.Add(message);
             _context.SaveChanges();
