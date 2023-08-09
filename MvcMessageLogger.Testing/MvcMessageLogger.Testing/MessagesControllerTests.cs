@@ -49,7 +49,7 @@ namespace MvcMessageLogger.Testing
             Assert.Contains("label", html);
             Assert.Contains("input", html);
             Assert.Contains("Content", html);
-            Assert.Contains($"<form method=\"post\" action=\"/Users/{user1.Id}/Details\">", html);
+            Assert.Contains($"<form method=\"post\" action=\"/Users/{user1.Id}/Messages\">", html);
         }
 
         [Fact]
@@ -66,7 +66,7 @@ namespace MvcMessageLogger.Testing
                 {"Content", "Hello!" },
             };
 
-            var response = await client.PostAsync($"/Users/{user1.Id}/Details", new FormUrlEncodedContent(addMessageFormData));
+            var response = await client.PostAsync($"/Users/{user1.Id}/Messages", new FormUrlEncodedContent(addMessageFormData));
             var html = await response.Content.ReadAsStringAsync();
 
             response.EnsureSuccessStatusCode();
@@ -75,7 +75,62 @@ namespace MvcMessageLogger.Testing
             Assert.DoesNotContain("Goodbye!", html);
         }
 
+        [Fact]
+        public async Task Edit_DisplaysFormPrePopulated()
+        {
+            //Arrange
+            var context = GetDbContext();
+            var client = _factory.CreateClient();
+            var user1 = new User("User1", "Username1");
+            var user2 = new User("User2", "Username2");
+            var message1 = new Message("Message1");
+            var message2 = new Message("Message2");
+            var message3 = new Message("Message3");
+            context.Users.Add(user1);
+            context.Users.Add(user2);
+            context.Messages.Add(message1);
+            context.Messages.Add(message2);
+            context.Messages.Add(message3);
+            user1.Messages.Add(message1);
+            user2.Messages.Add(message2);
+            user2.Messages.Add(message3);
+           
+            context.SaveChanges();
 
-        
+            //Act
+            var response = await client.GetAsync($"/Users/{user1.Id}/Messages/{message1.Id}/Edit");
+            var html = await response.Content.ReadAsStringAsync();
+
+            //Assert
+            Assert.Contains("Message1", html);
+        }
+
+        [Fact]
+        public async Task Update_SavesChangesToMessage()
+        {
+            // Arrange
+            var context = GetDbContext();
+            var client = _factory.CreateClient();
+
+            User user1 = new User { Name = "user1", Username = "username1" };
+            context.Users.Add(user1);
+            context.SaveChanges();
+
+            var formData = new Dictionary<string, string>
+                {
+                    { "Name", "user100" },
+                    { "Username", "username100" }
+                };
+
+            // Act
+            var response = await client.PostAsync($"/Users/{user1.Id}", new FormUrlEncodedContent(formData));
+            var html = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Contains("user100", html);
+            Assert.Contains("username100", html);
+        }
+
     }
 }

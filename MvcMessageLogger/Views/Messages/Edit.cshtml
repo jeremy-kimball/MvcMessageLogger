@@ -1,0 +1,8 @@
+﻿@model Message
+
+<h1>Edit message @Model.Id</h1>
+<form method="post" action="/Users/@Model.User.Id/Messages/@Model.Id">
+    <label for="context">Message</label>
+    <input type="text" name="content" id="content" value="@Model.Content"/>
+    <button type="submit">Edit Message</button>
+</form>

@@ -1,0 +1,11 @@
+﻿@model User
+
+<h1>Update User</h1>
+<form method="post" action="/Users/@Model.Id">
+    <label for="Name">Name:</label>
+    <input id="Name" type="text" name="Name" value="@Model.Name"/>
+    <label for="Username">Username:</label>
+    <input id="Username" type="text" name="Username" value="@Model.Username"/>
+
+    <button type="submit">Update User</button>
+</form>

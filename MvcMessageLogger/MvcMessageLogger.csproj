@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EFCore.NamingConventions" Version="7.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
       <PrivateAssets>all</PrivateAssets>
@@ -20,11 +24,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Users\Edit.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Users\Show.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Users\Edit.cshtml" />
     <None Include="Views\Users\Show.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Users\Edit.cshtml" />
   </ItemGroup>
 
 </Project>
