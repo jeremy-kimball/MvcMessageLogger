@@ -103,5 +103,53 @@ namespace MvcMessageLogger.Testing
             Assert.Contains("Username1", html);
             Assert.DoesNotContain("User2", html);
         }
+
+        [Fact]
+        public async Task Edit_DisplaysFormPrePopulated()
+        {
+            //Arrange
+            var context = GetDbContext();
+            var client = _factory.CreateClient();
+            User user1 = new User { Name = "user1", Username = "username1" };
+            context.Users.Add(user1);
+            context.SaveChanges();
+
+            //Act
+            var response = await client.GetAsync($"/Users/{user1.Id}/edit");
+            var html = await response.Content.ReadAsStringAsync();
+
+            //Assert
+            Assert.Contains(user1.Name, html);
+            Assert.Contains(user1.Username, html);
+            Assert.Contains("form method=\"post\"", html);
+            Assert.Contains($"action=\"/Users/{user1.Id}\"", html);
+        }
+
+        [Fact]
+        public async Task Update_SavesChangesToUser()
+        {
+            // Arrange
+            var context = GetDbContext();
+            var client = _factory.CreateClient();
+
+            User user1 = new User { Name = "user1", Username = "username1" };
+            context.Users.Add(user1);
+            context.SaveChanges();
+
+            var formData = new Dictionary<string, string>
+                {
+                    { "Name", "user100" },
+                    { "Username", "username100" }
+                };
+
+            // Act
+            var response = await client.PostAsync($"/Users/{user1.Id}", new FormUrlEncodedContent(formData));
+            var html = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Contains("user100", html);
+            Assert.Contains("username100", html);
+        }
     }
 }

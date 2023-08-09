@@ -52,5 +52,26 @@ namespace MvcMessageLogger.Controllers
 
             return Redirect($"/Users/{userId}/Details");
         }
+
+        [Route("/Users/{userId:int}/Messages/{messageId}/Edit")]
+        public IActionResult Edit(int userId, int messageId)
+        {
+            var user = _context.Users.Find(userId);
+            var message = _context.Messages.Find(messageId);
+            message.User = user;
+            return View(message);
+        }
+
+        [HttpPost]
+        [Route("/Users/{userId:int}/Messages/{messageId:int}")]
+        public IActionResult Update(int userId, int messageId, Message message)
+        {
+            message.Id = messageId;
+            message.CreatedAt = DateTime.Now.ToUniversalTime();
+            _context.Messages.Update(message);
+            _context.SaveChanges();
+            return Redirect($"/Users/{userId}/Details");
+        }
+
     }
 }
