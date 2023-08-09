@@ -19,13 +19,24 @@ namespace MvcMessageLogger.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string? username)
         {
-            var users = _context.Users.Include(u => u.Messages);
+            var users = _context.Users.Include(u => u.Messages).AsEnumerable();
+
+            if(username != null)
+            {
+                var user = users.Where(u => u.Username == username).First();
+                ViewData["MostCommonWord"] = HelperMethods.MostCommonWordByUser(_context, user.Id);
+                ViewData["SearchUsername"] = user;
+            }
+
             ViewData["UsersOrderedByMessageCount"] = HelperMethods.UsersOrderedByMessageCount(_context);
-            ViewData["MostCommonWord"] = HelperMethods.MostCommonWordByUser(_context, 1);
+            
             ViewData["MostCommonWordOverall"] = HelperMethods.MostCommonWordOverall(_context);
             ViewData["HourOfMostMessages"] = HelperMethods.HourOfMostMessages(_context);
+
+            ViewData["AllUsernames"] = _context.Users.Select(u => u.Username).Distinct().ToList();
+
             return View(users);
         }
     }
