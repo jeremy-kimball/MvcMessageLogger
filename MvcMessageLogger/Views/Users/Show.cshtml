@@ -4,7 +4,9 @@
 
 <p>User: @Model.Name</p>
 <p>Username: @Model.Username</p>
-
+<form method="get" action="/Users/@Model.Id/Edit">
+    <button>Edit</button>
+</form>
 <h3>Messages (@Model.Messages.Count)</h3>
 @foreach(var message in Model.Messages)
 {

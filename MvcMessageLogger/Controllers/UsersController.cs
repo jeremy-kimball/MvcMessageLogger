@@ -45,16 +45,14 @@ namespace MvcMessageLogger.Controllers
         [Route("/Users/{id:int}/edit")]
         public IActionResult Edit(int id)
         {
-            var movie = _context.Users.Find(id);
-            return View(movie);
+            var user = _context.Users.Find(id);
+            return View(user);
         }
 
         [HttpPost]
         [Route("/Users/{id:int}")]
         public IActionResult Update(int id, User user)
         {
-            //var oldMovie = _context.Movies.Find(movieId);
-            //oldMovie = movie;
             user.Id = id;
             _context.Users.Update(user);
             _context.SaveChanges();
