@@ -17,17 +17,21 @@
         <div class="row">
             <div class="col-md-4">
                 <h2 class="bg-danger text-white rounded p-2">Users Ordered by Message Count</h2>
+                <ul class="list-group">
                 @foreach (var kvpair in sortedDict)
                 {
-                    <p>User: @kvpair.Key, Message Count: @kvpair.Value</p>
+                        <li class="list-group-item">User: @kvpair.Key, Message Count: @kvpair.Value</li>
                 }
+                </ul>
             </div> <!-- End Message Count column -->
             <div class="col-md-4">
                 <h2 class="bg-warning text-black rounded p-2">Most Messages by Hour</h2>
+                <ul class="list-group">
                 @foreach (var kvpair in hourly)
                 {
-                    <p>@kvpair.Key: @kvpair.Value</p>
+                        <li class="list-group-item">@kvpair.Key: @kvpair.Value</li>
                 }
+                </ul>
             </div> <!-- End Most Messages column -->
             <div class="col-md-4">
                 
