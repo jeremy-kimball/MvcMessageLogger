@@ -17,7 +17,9 @@ This app was made as a final project for Mod 3 of The Turing School of Software 
   ![image](https://github.com/jeremy-kimball/MvcMessageLogger/assets/130601077/d085308b-3760-47a4-a7b3-037b050535ac)
   ![image](https://github.com/jeremy-kimball/MvcMessageLogger/assets/130601077/0e005a64-609f-4fcd-86c9-1bd8c3fd6413)
 </details>
+
 ## TODO
+
 * Saving state with cookies
 * Frontend overhaul using a [bootstrap theme](https://themes.getbootstrap.com/product/social-network-community-and-event-theme/)
 * More statistics for the statistics page
