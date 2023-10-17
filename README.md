@@ -4,7 +4,7 @@ MvcMessageLogger is an app that allows it's users to create accounts write notes
 This app was made as a final project for Mod 3 of The Turing School of Software Design. It was intended to reinforce concepts about MVC and relational databases. We were given a week to work on this project. It also included some new concepts at the time like HTML, CSS, JavaScript, Razor Pages, and Bootstrap.
 ## Tech Stack
 * C#
-* .Net Core
+* ASP .NET MVC
 * Postgresql
 * HTML, CSS, Javascript
 * Bootstrap
@@ -29,3 +29,9 @@ This app was made as a final project for Mod 3 of The Turing School of Software 
 1. Clone the repository
 2. Open in Visual Studio Code
 3. Run the program
+
+| Author |
+|:--------: |
+|<img src="https://github.com/jeremy-kimball.png?size=25">|
+| [@jeremy-kimball](https://github.com/jeremy-kimball/) |
+| <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></img>|
