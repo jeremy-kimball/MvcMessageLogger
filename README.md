@@ -30,8 +30,10 @@ This app was made as a final project for Mod 3 of The Turing School of Software 
 2. Open in Visual Studio Code
 3. Run the program
 
+
 | Author |
 |:--------: |
-|<img src="https://github.com/jeremy-kimball.png?size=25">|
+|<img src="https://github.com/jeremy-kimball.png?size=10">|
 | [@jeremy-kimball](https://github.com/jeremy-kimball/) |
-| <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></img>|
+| <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></img><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white"></img><img src="https://img.shields.io/badge/-LeetCode-FFA116?style=for-the-badge&logo=LeetCode&logoColor=black"></img>|
+
