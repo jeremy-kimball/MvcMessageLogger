@@ -12,7 +12,7 @@ This app was made as a final project for Mod 3 of The Turing School of Software 
 ![image](https://github.com/jeremy-kimball/MvcMessageLogger/assets/130601077/12d70b0f-21ec-4c2f-ae24-2309a701b8c3)
 <details>
   <summary>Additional Screenshots</summary>
-  <img src="https://github.com/jeremy-kimball/MvcMessageLogger/assets/130601077/6026a762-443a-4d31-b21e-d18013e8733b" name="user-creation">
+  <img src="https://github.com/jeremy-kimball/MvcMessageLogger/assets/130601077/ed3a8667-d462-4ce7-84e7-db0b1dcdb14c" name="media-show">
   <img src="https://github.com/jeremy-kimball/MvcMessageLogger/assets/130601077/7556ad18-90ed-4150-b81f-e8697504fbee" name="statistics">
   <img src="https://github.com/jeremy-kimball/MvcMessageLogger/assets/130601077/d085308b-3760-47a4-a7b3-037b050535ac" name="privacy-policy">
   <img src="https://github.com/jeremy-kimball/MvcMessageLogger/assets/130601077/0e005a64-609f-4fcd-86c9-1bd8c3fd6413" name="welcome">
